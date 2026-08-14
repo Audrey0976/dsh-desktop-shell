@@ -1,0 +1,35 @@
+# Build outputs
+bin/
+obj/
+artifacts/
+dist/
+TestResults/
+
+# Downloaded and generated runtimes
+.tools/
+.cache/
+runtime/
+
+# Local application data and secrets
+data/
+*.log
+*.pid
+*.user
+*.suo
+*.pfx
+*.snk
+.env
+.env.*
+!.env.example
+
+# WebView2 profiles
+*WebView2/
+EBWebView/
+
+# Editors and operating systems
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

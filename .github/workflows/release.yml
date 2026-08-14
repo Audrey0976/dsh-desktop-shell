@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.1
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/npm
+            .cache/runtimes
+          key: windows-runtime-node-24.18.1-dsh-0.1.0-rc.6-v1
+
+      - name: Verify tag and source version
+        shell: powershell
+        run: ./scripts/Verify-ReleaseVersion.ps1 -Tag $env:GITHUB_REF_NAME
+
+      - name: Test bootstrap and repository hygiene
+        shell: powershell
+        run: |
+          npm test --prefix src/bootstrap
+          ./scripts/Test-RepositoryHygiene.ps1
+
+      - name: Install Inno Setup 6
+        run: choco install innosetup --yes --no-progress
+
+      - name: Reproducible package build and runtime smoke
+        shell: powershell
+        run: |
+          $env:SOURCE_DATE_EPOCH = git log -1 --format=%ct
+          $version = $env:GITHUB_REF_NAME.TrimStart('v')
+          ./scripts/Build-Windows.ps1 -Version $version
+
+      - name: Publish unsigned preview release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: DSH Desktop Shell ${{ github.ref_name }}
+          body_path: docs/release-notes/v0.1.0.md
+          prerelease: true
+          fail_on_unmatched_files: true
+          files: |
+            artifacts/release/DSH-Desktop-Shell-*-win-x64-setup.exe
+            artifacts/release/DSH-Desktop-Shell-*-win-x64-portable.zip
+            artifacts/release/DSH-Desktop-Shell-*-win-x64.spdx.json
+            artifacts/release/SHA256SUMS.txt
+            artifacts/release/THIRD_PARTY_NOTICES.txt

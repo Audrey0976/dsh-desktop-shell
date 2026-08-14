@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.1
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .cache/npm
+            .cache/runtimes
+          key: windows-runtime-node-24.18.1-dsh-0.1.0-rc.6-v1
+
+      - name: Test cross-platform runtime bootstrap
+        run: npm test --prefix src/bootstrap
+
+      - name: Scan repository paths, secrets, and generated data
+        shell: powershell
+        run: ./scripts/Test-RepositoryHygiene.ps1
+
+      - name: Build SDK-style net48 x64 shell
+        run: dotnet build DSH.Desktop.Shell.sln -c Release -p:Platform=x64
+
+      - name: Install Inno Setup 6
+        run: choco install innosetup --yes --no-progress
+
+      - name: Build and smoke-test Setup and Portable packages
+        shell: powershell
+        run: |
+          $env:SOURCE_DATE_EPOCH = git log -1 --format=%ct
+          ./scripts/Build-Windows.ps1
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dsh-desktop-shell-win-x64
+          path: artifacts/release/*
+          if-no-files-found: error
+          retention-days: 14

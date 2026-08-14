@@ -1,0 +1,41 @@
+DSH Desktop Shell - Third-Party Notices
+=======================================
+
+DSH Desktop Shell is an unofficial community project. DeepSeek does not
+sponsor, endorse, or maintain this desktop shell.
+
+DeepSeek Harness / @deepseek-ai/dsh
+-----------------------------------
+Copyright (c) 2026 DeepSeek
+License: MIT
+Source: https://github.com/deepseek-ai/deepseek-harness
+
+The whale silhouette is derived from the DeepSeek Harness favicon under the
+same MIT license. A copy of the upstream license is included in the packaged
+dsh runtime when provided by the npm package.
+
+Node.js
+-------
+Copyright Node.js contributors. All rights reserved.
+License: MIT and additional third-party notices
+Source: https://github.com/nodejs/node
+
+The complete Node.js LICENSE file is included at runtime/node/LICENSE.
+
+Microsoft Edge WebView2 SDK
+---------------------------
+Copyright Microsoft Corporation. All rights reserved.
+Package: Microsoft.Web.WebView2 1.0.4078.44
+Source: https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.4078.44
+
+The SDK is redistributed under Microsoft's package terms. Its license text is
+included beside the application binary as Microsoft.Web.WebView2.LICENSE.txt.
+The separately installed Evergreen WebView2 Runtime is serviced by Microsoft
+and is not bundled in this release.
+
+Other npm dependencies
+----------------------
+The packaged dsh runtime contains transitive npm dependencies under
+runtime/versions/<version>/node_modules. Their package manifests and license
+files remain next to their code. The release SPDX SBOM lists the discovered
+package names, versions, declared licenses, and download locations.

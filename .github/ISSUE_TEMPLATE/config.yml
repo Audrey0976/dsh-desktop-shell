@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Audrey0976/dsh-desktop-shell/security/advisories/new
+    about: Report credential, update, navigation, installer, or process security issues privately.

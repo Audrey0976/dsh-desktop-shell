@@ -1,0 +1,15 @@
+{
+  "name": "@dsh-desktop-shell/bootstrap",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cross-platform runtime supervisor for DSH Desktop Shell",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "scripts": {
+    "check": "node --check bootstrap.mjs",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}

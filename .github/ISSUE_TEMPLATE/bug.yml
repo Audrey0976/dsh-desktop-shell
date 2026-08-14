@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible desktop-shell problem without secrets
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include API keys, credentials, conversations, or an entire WebView profile.
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+    validations:
+      required: true
+  - type: input
+    id: shell
+    attributes:
+      label: Shell version
+    validations:
+      required: true
+  - type: input
+    id: dsh
+    attributes:
+      label: dsh version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

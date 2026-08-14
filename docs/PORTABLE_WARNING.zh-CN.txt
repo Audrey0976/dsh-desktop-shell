@@ -1,0 +1,7 @@
+DSH Desktop Shell 便携版
+
+请保留 ZIP 内的完整目录结构。portable.marker 会让运行时、日志、WebView2 数据和默认 DSH_HOME 写入本目录的 data 文件夹。
+
+data\dsh-home 可能包含 API Key、会话内容和本机路径。复制给别人、上传网盘或提交 Issue 前，请先删除或完整检查 data 文件夹。
+
+本项目为非官方社区桌面壳，不代表 DeepSeek 官方。
